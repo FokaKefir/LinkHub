@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class ReviewFragment extends Fragment {
+public class ReviewFragment extends Fragment implements View.OnClickListener {
 
     // region 1. Declaration
 
@@ -60,7 +60,6 @@ public class ReviewFragment extends Fragment {
         this.reviews.add(new Review("123", "Sanyi", "Nagyon vagany hely\n meg fogok jonni", null, 6, new Timestamp(new Date())));
         this.reviews.add(new Review("123", "Sanyi", "Nagyon vagany hely\n meg fogok jonni", "http://fokakefir.go.ro/lemon_app/images/post_3f766558-a8dd-4a13-86d2-e0ae790c12aa.jpg", 6, new Timestamp(new Date())));
 
-
         this.txtTitle = this.view.findViewById(R.id.txt_review_place_title);
         this.txtTitle.setText(place.getName());
 
@@ -69,7 +68,22 @@ public class ReviewFragment extends Fragment {
         this.adapter = new ReviewAdapter(this.activity, this.reviews);
         this.recyclerView.setAdapter(this.adapter);
 
+        this.fabCreateReview = this.view.findViewById(R.id.fab_add_review);
+        this.fabCreateReview.setOnClickListener(this);
+
+
         return this.view;
+    }
+
+    // endregion
+
+    // region 3. Button listener
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.fab_add_review) {
+            this.activity.writeReview(this.place);
+        }
     }
 
     // endregion
