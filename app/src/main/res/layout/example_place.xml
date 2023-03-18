@@ -31,7 +31,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_user_24"
-            android:adjustViewBounds="true"/>
+            android:adjustViewBounds="true" />
 
         <TextView
             android:id="@+id/txt_Place_description"

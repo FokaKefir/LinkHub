@@ -23,7 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SearchFragment extends Fragment implements View.OnClickListener, PlacesApi.OnResponseListener {
+public class SearchFragment extends Fragment implements View.OnClickListener, PlacesApi.OnResponseListener, PlaceAdapter.OnHolderListener {
+
+
+    // region 1. Declaration
 
     private MainActivity activity;
 
@@ -31,13 +34,16 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Pl
     private EditText txtSearch;
     private Button btnSearch;
     private PlaceAdapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
 
     private View view;
 
     private List<Place> places;
 
     private PlacesApi api;
+
+    // endregion
+
+    // region 2. Constructor and Lifecycle
 
     public SearchFragment(MainActivity activity) {
         this.activity = activity;
@@ -55,13 +61,17 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Pl
 
         this.recyclerView = this.view.findViewById(R.id.recycler_Post);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        this.adapter = new PlaceAdapter(this.getContext(), places);
+        this.adapter = new PlaceAdapter(this.getContext(), this.places, this);
         this.recyclerView.setAdapter(adapter);
 
         this.api = new PlacesApi(this);
 
         return this.view;
     }
+
+    // endregion
+
+    // region 3. Button listener
 
     @Override
     public void onClick(View view) {
@@ -77,10 +87,26 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Pl
         }
     }
 
+    // endregion
+
+    // region 4. Api listener
+
     @Override
     public void onPlaceAdded(Place place) {
         this.places.add(place);
         int pos = this.places.size();
         this.adapter.notifyItemInserted(pos);
     }
+
+    // endregion
+
+    // region 5. RecyclerView listener
+
+    @Override
+    public void onPlaceClick(int pos) {
+        Place place = this.places.get(pos);
+        this.activity.addToFragments(new ReviewFragment(this.activity, place));
+    }
+
+    // endregion
 }

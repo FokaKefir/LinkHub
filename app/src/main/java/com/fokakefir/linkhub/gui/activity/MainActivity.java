@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.fokakefir.linkhub.R;
-import com.fokakefir.linkhub.gui.fragment.PostsFragment;
+import com.fokakefir.linkhub.gui.fragment.HomeFragment;
 import com.fokakefir.linkhub.gui.fragment.SearchFragment;
 import com.fokakefir.linkhub.gui.fragment.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         this.searchFragments = new ArrayList<>();
         this.userFragments = new ArrayList<>();
 
-        this.homeFragments.add(new PostsFragment(this));
+        this.homeFragments.add(new HomeFragment(this));
         this.searchFragments.add(new SearchFragment(this));
         this.userFragments.add(new UserFragment(this));
 
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         switch (item.getItemId()) {
             case R.id.nav_home:
                 selectedFragments = this.homeFragments;
-                selectedFragment = new PostsFragment(this);
+                selectedFragment = new HomeFragment(this);
                 break;
             case R.id.nav_search:
                 selectedFragments = this.searchFragments;

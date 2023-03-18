@@ -12,4 +12,8 @@
     <color name="orange">#FFA500</color>
     <color name="dark_orange">#FF8C00</color>
     <color name="light_gray">#F3F3F3FF</color>
+    <color name="green">#116530</color>
+    <color name="blue_green">#21B6A8</color>
+    <color name="neon_green">#A3EBB1</color>
+    <color name="kelly_green">#18A558</color>
 </resources>
