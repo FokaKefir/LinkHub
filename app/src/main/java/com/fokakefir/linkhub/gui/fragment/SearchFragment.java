@@ -70,9 +70,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Pl
             if (city.isEmpty()) {
                 Toast.makeText(activity, "Text field cannot be empty", Toast.LENGTH_SHORT).show();
             } else {
-                int size = places.size();
                 this.places.clear();
-                this.adapter.notifyItemRangeRemoved(0, size - 1);
+                this.adapter.notifyDataSetChanged();
                 this.api.sendCityDataRequest(city);
             }
         }

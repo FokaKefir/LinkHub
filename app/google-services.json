@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "626918462875",
+    "project_id": "linkhub-8a321",
+    "storage_bucket": "linkhub-8a321.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626918462875:android:0aec7e5f6d071a33bf3d3e",
+        "android_client_info": {
+          "package_name": "com.fokakefir.linkhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "626918462875-r9lgtuupo8bh89basc8bt5edi89ccpd4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCHSx1MbEDrFUDc3UDdx7ayOxU0740nu4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "626918462875-r9lgtuupo8bh89basc8bt5edi89ccpd4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -71,4 +71,10 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
             this.txtDescription = itemView.findViewById(R.id.txt_Place_description);
         }
     }
+
+    public interface OnHolderListener {
+
+    }
+
+
 }
