@@ -1,8 +1,10 @@
-package com.fokakefir.linkhub;
+package com.fokakefir.linkhub.gui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.fokakefir.linkhub.R;
 
 public class MainActivity extends AppCompatActivity {
 
