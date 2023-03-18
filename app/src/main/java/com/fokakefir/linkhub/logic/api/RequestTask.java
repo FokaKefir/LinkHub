@@ -1,4 +1,4 @@
-package com.fokakefir.linkhub.logic;
+package com.fokakefir.linkhub.logic.api;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -11,13 +11,10 @@ import okhttp3.Response;
 
 public class RequestTask extends AsyncTask<String, Void, String> {
 
-    public static final int REQUEST_FAILED = -1;
 
-    private int requestCode;
     private OnResponseListener listener;
 
-    public RequestTask(int requestCode, OnResponseListener listener) {
-        this.requestCode = requestCode;
+    public RequestTask(OnResponseListener listener) {
         this.listener = listener;
     }
 
@@ -45,11 +42,11 @@ public class RequestTask extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         if (result == null)
             return;
-        listener.onResponse(result, this.requestCode);
+        listener.onResponse(result);
     }
 
     public interface OnResponseListener {
-        void onResponse(String response, int requestCode);
+        void onResponse(String response);
         void onFailed(String errorMessage);
     }
 
