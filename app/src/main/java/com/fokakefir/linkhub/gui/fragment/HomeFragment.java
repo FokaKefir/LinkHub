@@ -15,7 +15,7 @@ import com.fokakefir.linkhub.logic.api.PlacesApi;
 import com.fokakefir.linkhub.model.Place;
 
 
-public class PostsFragment extends Fragment implements View.OnClickListener, PlacesApi.OnResponseListener {
+public class HomeFragment extends Fragment implements View.OnClickListener, PlacesApi.OnResponseListener {
 
 
     private MainActivity activity;
@@ -26,13 +26,13 @@ public class PostsFragment extends Fragment implements View.OnClickListener, Pla
 
     private PlacesApi placesApi;
 
-    public PostsFragment(MainActivity activity) {
+    public HomeFragment(MainActivity activity) {
         this.activity = activity;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.view = inflater.inflate(R.layout.fragment_posts, container, false);
+        this.view = inflater.inflate(R.layout.fragment_home, container, false);
 
         this.btnSearch = view.findViewById(R.id.btn_search);
         this.btnSearch.setOnClickListener(this);

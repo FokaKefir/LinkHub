@@ -23,11 +23,12 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
 
     private List<Place> places;
     private Context context;
+    private OnHolderListener listener;
 
-
-    public PlaceAdapter(Context context, List<Place> places){
+    public PlaceAdapter(Context context, List<Place> places, OnHolderListener listener){
         this.context = context;
         this.places = places;
+        this.listener = listener;
     }
 
     @NonNull
@@ -55,7 +56,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
         return this.places.size();
     }
 
-    public class PlaceViewHolder extends RecyclerView.ViewHolder {
+    public class PlaceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView txtName;
 
@@ -66,14 +67,26 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
         public PlaceViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            imageView = itemView.findViewById(R.id.img_place);
+            this.imageView = itemView.findViewById(R.id.img_place);
             this.txtName = itemView.findViewById(R.id.txt_Place_name);
             this.txtDescription = itemView.findViewById(R.id.txt_Place_description);
+
+            this.itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (view == this.itemView) {
+                int pos = getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION) {
+                    listener.onPlaceClick(getAdapterPosition());
+                }
+            }
         }
     }
 
     public interface OnHolderListener {
-
+        void onPlaceClick(int pos);
     }
 
 
