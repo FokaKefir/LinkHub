@@ -87,43 +87,4 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="Register"/>
-<!--    <EditText-->
-<!--        android:id="@+id/txt_new_username"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="4dp"-->
-<!--        android:hint="Username"-->
-<!--        android:inputType="text"/>-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/txt_new_email"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="4dp"-->
-<!--        android:hint="Email"-->
-<!--        android:inputType="textEmailAddress"/>-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/txt_new_password"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="4dp"-->
-<!--        android:hint="Password"-->
-<!--        android:inputType="textPassword" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/txt_confirm_password"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="4dp"-->
-<!--        android:hint="Confirm password"-->
-<!--        android:inputType="textPassword"/>-->
-
-<!--    <Button-->
-<!--        android:id="@+id/btn_register"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="8dp"-->
-<!--        android:text="Register"/>-->
-
 </LinearLayout>
