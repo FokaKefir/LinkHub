@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gui.fragment.SearchFragment">
+    tools:context=".gui.fragment.SearchFragment"
+    >
+
+    <EditText
+        android:id="@+id/txt_frag_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Search"
+        android:layout_margin="10dp"
+        android:layout_toStartOf="@id/btn_frag_search"
+
+        />
+    <Button
+        android:id="@+id/btn_frag_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:layout_margin="10dp"
+        android:layout_alignParentEnd="true"/>
 
     <androidx.recyclerview.widget.RecyclerView
 
         android:id="@+id/recycler_Post"
+        android:layout_below="@id/txt_frag_search"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
 
-</FrameLayout>
+</RelativeLayout>
