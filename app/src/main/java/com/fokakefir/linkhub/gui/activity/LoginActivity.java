@@ -11,13 +11,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fokakefir.linkhub.R;
+import com.fokakefir.linkhub.logic.database.LoginDatabaseManager;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseUser;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, LoginDatabaseManager.OnResponseListener {
     private TextInputLayout txtEmail;
     private TextInputLayout txtPassword;
     private Button btnLogin;
     private TextView txtCreateAccount;
+    private LoginDatabaseManager loginDatabaseManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +34,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         this.btnLogin.setOnClickListener(this);
         this.txtCreateAccount.setOnClickListener(this);
+
+        this.loginDatabaseManager = new LoginDatabaseManager(this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        this.loginDatabaseManager.checkSignedInUser();
     }
 
     @Override
@@ -47,8 +53,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(this, "Email field is empty", Toast.LENGTH_SHORT).show();
             } else if (strPassword.isEmpty()) {
                 Toast.makeText(this, "Password field is empty", Toast.LENGTH_SHORT).show();
+            } else {
+                this.loginDatabaseManager.signIn(strEmail, strPassword);
             }
-        }else if (view.getId() == R.id.txt_create_account) {
+        } else if (view.getId() == R.id.txt_create_account) {
             createAccount();
         }
     }
@@ -58,15 +66,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         startActivity(intent);
     }
 
-//    @Override
-//    public void onSignedIn(FirebaseUser user) {
-//        Intent intent = new Intent(this, HomeActivity.class);
-//        startActivity(intent);
-//        finish();
-//    }
-//
-//    @Override
-//    public void onFailed(String errorMessage) {
-//        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
-//    }
+    @Override
+    public void onSignedIn(FirebaseUser user) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onFailed(String errorMessage) {
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+    }
 }
