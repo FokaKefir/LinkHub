@@ -13,6 +13,7 @@ import com.fokakefir.linkhub.R;
 import com.fokakefir.linkhub.gui.fragment.HomeFragment;
 import com.fokakefir.linkhub.gui.fragment.SearchFragment;
 import com.fokakefir.linkhub.gui.fragment.UserFragment;
+import com.fokakefir.linkhub.model.Place;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -22,6 +23,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     // region 0. Constants
+
+    public static final String PLACE_ID = "place_id";
 
     // endregion
 
@@ -163,6 +166,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return super.onOptionsItemSelected(item);
     }
 
+    // endregion
+
+    // region 5. Write review
+
+    public void writeReview(Place place) {
+        Intent intent = new Intent(this, ReviewActivity.class);
+        intent.putExtra(PLACE_ID, place.getId());
+        startActivity(intent);
+    }
 
     // endregion
+
 }
