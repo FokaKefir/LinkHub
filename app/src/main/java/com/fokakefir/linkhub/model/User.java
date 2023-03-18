@@ -2,13 +2,21 @@ package com.fokakefir.linkhub.model;
 
 import com.google.firebase.firestore.Exclude;
 
-public class User {
+import java.util.ArrayList;
+import java.util.List;
 
+public class User {
     private String docId;
     private String name;
     private String imageUrl;
+    private List<String> followerIds;
+    private List<String> followingIds;
+    private List<String> placeIds;
 
     public User(String name, String imageUrl) {
+        this.placeIds = new ArrayList<>();
+        this.followerIds = new ArrayList<>();
+        this.followingIds = new ArrayList<>();
         this.name = name;
         this.imageUrl = imageUrl;
     }
@@ -35,6 +43,30 @@ public class User {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+    @Exclude
+    public int getFollowerIdsSize() {
+        return this.followerIds.size();
+    }
+    @Exclude
+    public int getFollowingIdsSize() {
+        return this.followingIds.size();
+    }
+    @Exclude
+    public int getPlaceIdsSize() {
+        return this.placeIds.size();
+    }
+
+    public List<String> getFollowerIds() {
+        return followerIds;
+    }
+
+    public List<String> getFollowingIds() {
+        return followingIds;
+    }
+
+    public List<String> getPlaceIds() {
+        return placeIds;
     }
 
     public void setImageUrl(String imageUrl) {

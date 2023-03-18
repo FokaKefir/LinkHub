@@ -20,7 +20,6 @@
             android:name=".gui.activity.RegisterActivity"
             android:exported="false">
         </activity>
-
         <activity
             android:name=".gui.activity.LoginActivity"
             android:exported="true">
