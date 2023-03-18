@@ -72,12 +72,13 @@ public class UserFragment extends Fragment implements UserDatabaseManager.OnResp
     @Override
     public void onUserDataChanged(User user) {
         this.txtUsername.setText(user.getName());
-//        this.txtPosts.setText(user.getPlaceIdsSize() + "\nposts");
-//        this.txtFollowers.setText(user.getFollowerIdsSize() + "\nfollowers");
-//        this.txtFollowing.setText(user.getFollowingIdsSize() + "\nfollowing");
-        this.txtPosts.setText(0 + "\nposts");
-        this.txtFollowers.setText(0 + "\nfollowers");
-        this.txtFollowing.setText(0 + "\nfollowing");
-        Glide.with(getContext()).load(user.getImageUrl()).into(this.userImage);
+        this.txtPosts.setText(user.getPlaceIdsSize() + "\nreviews");
+        this.txtFollowers.setText(user.getFollowerIdsSize() + "\nfollowers");
+        this.txtFollowing.setText(user.getFollowingIdsSize() + "\nfollowing");
+        if(user.getImageUrl() == null){
+            Glide.with(getContext()).load(R.drawable.ic_baseline_user_24).into(this.userImage);
+        } else{
+            Glide.with(getContext()).load(user.getImageUrl()).into(this.userImage);
+        }
     }
 }

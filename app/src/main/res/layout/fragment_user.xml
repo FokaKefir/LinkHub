@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".gui.fragment.UserFragment">
 
     <LinearLayout
@@ -20,6 +21,7 @@
             android:layout_gravity="center"
             android:layout_margin="16dp"
             android:src="@drawable/ic_baseline_person_add"
+            app:civ_circle_background_color="@color/light_gray"
             android:clickable="true"/>
 
         <LinearLayout
@@ -55,7 +57,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="5"
                     android:gravity="center"
-                    android:text="1000\nposts"
+                    android:text="1000\nreviews"
                     android:textColor="@color/black"
                     android:textSize="16dp" />
 
