@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.fokakefir.linkhub.R;
@@ -12,6 +14,7 @@ import com.fokakefir.linkhub.gui.fragment.PostsFragment;
 import com.fokakefir.linkhub.gui.fragment.SearchFragment;
 import com.fokakefir.linkhub.gui.fragment.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +26,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     // endregion
 
     // region 1. Declaration
+
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
 
     private BottomNavigationView bottomNav;
 
@@ -73,6 +78,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             finish();
             System.exit(0);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.logout_menu, menu);
+        return true;
     }
 
     // endregion
@@ -136,6 +147,22 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 .remove(fragment).commit();
         this.activeFragments.remove(fragment);
     }
+
+    // endregion
+
+    // region 4. Toolbox
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.mnu_logout) {
+            this.auth.signOut();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     // endregion
 }

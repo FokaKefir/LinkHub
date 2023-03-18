@@ -1,14 +1,23 @@
 package com.fokakefir.linkhub.model;
 
+import com.google.firebase.firestore.Exclude;
+
 public class Place {
+    private String id;
+    private String imageUrl;
     private String name;
     private String description;
 
-    public Place(String name, String description, String imageUrl) {
+    public Place(String id, String name, String description, String imageUrl) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
     }
+
+    public Place() {
+    }
+
     public String getName() {
         return name;
     }
@@ -33,8 +42,12 @@ public class Place {
         this.imageUrl = imageUrl;
     }
 
-    private String imageUrl;
+    @Exclude
+    public String getId() {
+        return id;
+    }
 
-
-
+    public void setId(String id) {
+        this.id = id;
+    }
 }

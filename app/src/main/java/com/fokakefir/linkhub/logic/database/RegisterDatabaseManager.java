@@ -38,8 +38,9 @@ public class RegisterDatabaseManager {
     private StorageTask uploadTask;
     private Context context;
 
-    public RegisterDatabaseManager(OnResponseListener listener) {
+    public RegisterDatabaseManager(Context context, OnResponseListener listener) {
         this.listener = listener;
+        this.context = context;
     }
 
     public void createAccount(String username, String email, String password, Uri uri) {
@@ -117,7 +118,7 @@ public class RegisterDatabaseManager {
     }
 
     private void addUrlToUser(String url) {
-
+        this.usersRef.document(this.auth.getCurrentUser().getUid()).update("imageUrl", url);
     }
 
     private String getFileExtension(Uri uri) {

@@ -81,6 +81,8 @@ public class PlacesApi implements CityRequestTask.OnResponseListener, PlacesRequ
         try {
             JSONObject jsonResponse = new JSONObject(response);
 
+            String id = jsonResponse.getString("xid");
+
             String imageUrl = null;
             if (!jsonResponse.isNull("image")) {
                 imageUrl = jsonResponse.getString("image");
@@ -101,7 +103,7 @@ public class PlacesApi implements CityRequestTask.OnResponseListener, PlacesRequ
             if (name.isEmpty())
                 return;
 
-            Place place = new Place(name, desc, imageUrl);
+            Place place = new Place(id, name, desc, imageUrl);
             this.listener.onPlaceAdded(place);
         } catch (Exception e) {
             Log.d(TAG, e.toString());
