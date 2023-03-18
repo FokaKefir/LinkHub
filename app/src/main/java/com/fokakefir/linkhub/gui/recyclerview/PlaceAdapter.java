@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.fokakefir.linkhub.R;
 import com.fokakefir.linkhub.model.Place;
 import com.squareup.picasso.Picasso;
@@ -45,9 +46,8 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
         holder.txtName.setText(place.getName());
         holder.txtDescription.setText(place.getDescription());
 
-        Picasso.with(this.context).load(place.getImageUrl())
-                .placeholder(R.mipmap.ic_launcher).
-                fit().centerCrop().into(holder.imageView);
+        Glide.with(this.context).load(place.getImageUrl()).into(holder.imageView);
+
     }
 
     @Override

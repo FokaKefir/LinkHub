@@ -16,12 +16,14 @@ import android.widget.Toast;
 import com.fokakefir.linkhub.R;
 import com.fokakefir.linkhub.gui.activity.MainActivity;
 import com.fokakefir.linkhub.gui.recyclerview.PlaceAdapter;
+import com.fokakefir.linkhub.logic.api.PlacesApi;
 import com.fokakefir.linkhub.model.Place;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class SearchFragment extends Fragment  implements View.OnClickListener{
+public class SearchFragment extends Fragment implements View.OnClickListener, PlacesApi.OnResponseListener {
 
     private MainActivity activity;
 
@@ -33,38 +35,53 @@ public class SearchFragment extends Fragment  implements View.OnClickListener{
 
     private View view;
 
+    private List<Place> places;
+
+    private PlacesApi api;
+
     public SearchFragment(MainActivity activity) {
         this.activity = activity;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)  {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.fragment_search, container, false);
         this.txtSearch = this.view.findViewById(R.id.txt_frag_search);
         this.btnSearch = this.view.findViewById(R.id.btn_frag_search);
 
-        btnSearch.setOnClickListener(this);
+        this.btnSearch.setOnClickListener(this);
 
-        ArrayList<Place> places = new ArrayList<>();
-
-        places.add(new Place("Halasz Bastya","Johely","https://firebasestorage.googleapis.com/v0/b/tempapp-55605.appspot.com/o/images%2F1678901257164.jpg?alt=media&token=8dd390ab-1755-46cc-86b5-0c061807c94a"));
-        places.add(new Place("Bazilika","Johely","https://firebasestorage.googleapis.com/v0/b/tempapp-55605.appspot.com/o/images%2F1678901257164.jpg?alt=media&token=8dd390ab-1755-46cc-86b5-0c061807c94a"));
-        places.add(new Place("Parlament","Johely","https://firebasestorage.googleapis.com/v0/b/tempapp-55605.appspot.com/o/images%2F1678901257164.jpg?alt=media&token=8dd390ab-1755-46cc-86b5-0c061807c94a"));
+        this.places = new ArrayList<>();
 
         this.recyclerView = this.view.findViewById(R.id.recycler_Post);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        this.adapter = new PlaceAdapter(this.getContext(),places);
+        this.adapter = new PlaceAdapter(this.getContext(), places);
         this.recyclerView.setAdapter(adapter);
 
-
+        this.api = new PlacesApi(this);
 
         return this.view;
     }
 
     @Override
     public void onClick(View view) {
-        if(view.getId() == R.id.btn_frag_search){
-            Toast.makeText(activity, this.txtSearch.getText(), Toast.LENGTH_SHORT).show();
+        if (view.getId() == R.id.btn_frag_search) {
+            String city = this.txtSearch.getText().toString().trim();
+            if (city.isEmpty()) {
+                Toast.makeText(activity, "Text field cannot be empty", Toast.LENGTH_SHORT).show();
+            } else {
+                int size = places.size();
+                this.places.clear();
+                this.adapter.notifyItemRangeRemoved(0, size - 1);
+                this.api.sendCityDataRequest(city);
+            }
         }
+    }
+
+    @Override
+    public void onPlaceAdded(Place place) {
+        this.places.add(place);
+        int pos = this.places.size();
+        this.adapter.notifyItemInserted(pos);
     }
 }

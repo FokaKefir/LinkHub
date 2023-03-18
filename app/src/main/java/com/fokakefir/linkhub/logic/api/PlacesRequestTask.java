@@ -23,7 +23,7 @@ public class PlacesRequestTask extends AsyncTask<String, Void, String> {
         String strLimit = params[3];
         String strRate = params[4];
         String url = "https://opentripmap-places-v1.p.rapidapi.com/en/places/radius?radius="
-                + strRadius + "&lon=" + strLon + "&lat=" + strLat + "&limit=" + strLimit;
+                + strRadius + "&lon=" + strLon + "&lat=" + strLat + "&limit=" + strLimit + "&rate=" + strRate;
 
 
         Request request = new Request.Builder()

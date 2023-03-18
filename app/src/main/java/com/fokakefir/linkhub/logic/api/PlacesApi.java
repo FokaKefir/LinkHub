@@ -17,8 +17,8 @@ public class PlacesApi implements CityRequestTask.OnResponseListener, PlacesRequ
     private static final int REQUEST_PLACES = 2;
     private static final int REQUEST_PLACE = 3;
 
-    private static final int RADIUS = 150;
-    private static final int LIMIT = 10;
+    private static final int RADIUS = 500;
+    private static final int LIMIT = 20;
     private static final int RATE = 3;
 
     private int size;
@@ -80,9 +80,12 @@ public class PlacesApi implements CityRequestTask.OnResponseListener, PlacesRequ
     public void onResponsePlace(String response) {
         try {
             JSONObject jsonResponse = new JSONObject(response);
+
             String imageUrl = null;
             if (!jsonResponse.isNull("image")) {
                 imageUrl = jsonResponse.getString("image");
+            } else {
+
             }
 
             String desc = "";
