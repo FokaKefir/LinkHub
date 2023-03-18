@@ -66,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         this.userImage.setOnClickListener(this);
         this.btnRegister.setOnClickListener(this);
 
-        this.registerDatabaseManager = new RegisterDatabaseManager(this);
+        this.registerDatabaseManager = new RegisterDatabaseManager(this, this);
     }
 
     private void requestStoragePermission() {
@@ -123,7 +123,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             if (!validateName(username) | !validateEmail(email) | !validatePassword(password) | !validatePasswordAgain(password, confirmPassword)) {
                 return;
             }
-            this.registerDatabaseManager.createAccount(username, email, password, userImageUri);
+            this.registerDatabaseManager.createAccount(username, email, password, this.userImageUri);
 
         } else if (view.getId() == R.id.img_register_user) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
