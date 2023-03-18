@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         this.userFragments.add(new UserFragment(this));
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, this.homeFragments.get(0)).hide(this.homeFragments.get(0)).commit();
+                .add(R.id.fragment_container, this.homeFragments.get(0)).show(this.homeFragments.get(0)).commit();
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, this.searchFragments.get(0)).hide(this.searchFragments.get(0)).commit();
