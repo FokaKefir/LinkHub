@@ -2,6 +2,7 @@ package com.fokakefir.linkhub.logic.api;
 
 import android.util.Log;
 
+import com.fokakefir.linkhub.model.FilterOps;
 import com.fokakefir.linkhub.model.Place;
 
 import org.json.JSONArray;
@@ -17,9 +18,10 @@ public class PlacesApi implements CityRequestTask.OnResponseListener, PlacesRequ
     private static final int REQUEST_PLACES = 2;
     private static final int REQUEST_PLACE = 3;
 
-    private static final int RADIUS = 3000;
-    private static final int LIMIT = 20;
+    private static final int RADIUS = 10000;
+    private static final int LIMIT = 50;
     private static final int RATE = 3;
+
 
     private int size;
 

@@ -6,22 +6,23 @@ public class FilterOps {
 
     private ArrayList<String> kinds;
     private ArrayList<String> ratings;
+
+    private ArrayList<String> exclude;
+
+
     boolean isSorted;
     private String sortByThisField;
 
-    public FilterOps(ArrayList<String> kinds, ArrayList<String> ratings, boolean isSorted, String sortByThisField) {
-        this.kinds = kinds;
-        this.ratings = ratings;
-        this.isSorted = isSorted;
-        this.sortByThisField = sortByThisField;
-    }
+    private static FilterOps instance;
 
-    public FilterOps(){
-        kinds = new ArrayList<>();
-        ratings = new ArrayList<>();
-        isSorted = false;
-        sortByThisField = "";
+    public static FilterOps getInstance(){
+        if(instance == null){
+            instance = new FilterOps();
+        }
+        return instance;
     }
+    private FilterOps(){}
+
 
     public ArrayList<String> getKinds() {
         return kinds;
@@ -53,5 +54,12 @@ public class FilterOps {
 
     public void setSortByThisField(String sortByThisField) {
         this.sortByThisField = sortByThisField;
+    }
+    public ArrayList<String> getExclude() {
+        return exclude;
+    }
+
+    public void setExclude(ArrayList<String> exclude) {
+        this.exclude = exclude;
     }
 }

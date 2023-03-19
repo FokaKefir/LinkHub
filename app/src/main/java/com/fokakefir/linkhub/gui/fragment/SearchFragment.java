@@ -17,7 +17,10 @@ import com.fokakefir.linkhub.R;
 import com.fokakefir.linkhub.gui.activity.MainActivity;
 import com.fokakefir.linkhub.gui.recyclerview.PlaceAdapter;
 import com.fokakefir.linkhub.logic.api.PlacesApi;
+import com.fokakefir.linkhub.model.FilterOps;
 import com.fokakefir.linkhub.model.Place;
+
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +66,31 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Pl
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         this.adapter = new PlaceAdapter(this.getContext(), this.places, this);
         this.recyclerView.setAdapter(adapter);
+
+
+        FilterOps filterOps = FilterOps.getInstance();
+
+        ArrayList<String>testKinds = new ArrayList<>();
+
+        ArrayList<String>testExclude = new ArrayList<>();
+
+        testExclude.add("historic");
+        testExclude.add("cultural");
+
+        //testKinds.add("adult");
+        //testKinds.add("-historic");
+        //testKinds.add("casino");
+
+        ArrayList<String>testRatings = new ArrayList<>();
+
+        //testRatings.add("3");
+
+        filterOps.setKinds(testKinds);
+        filterOps.setRatings(testRatings);
+        filterOps.setExclude(testExclude);
+
+        filterOps.setSorted(false);
+
 
         this.api = new PlacesApi(this);
 
