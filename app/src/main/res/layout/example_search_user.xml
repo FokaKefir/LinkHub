@@ -16,6 +16,7 @@
             android:layout_height="80dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="15dp"
+            android:layout_centerVertical="true"
             android:src="@drawable/ic_baseline_user_24" />
 
         <LinearLayout

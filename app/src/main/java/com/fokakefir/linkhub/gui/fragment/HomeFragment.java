@@ -15,7 +15,7 @@ import com.fokakefir.linkhub.logic.api.PlacesApi;
 import com.fokakefir.linkhub.model.Place;
 
 
-public class HomeFragment extends Fragment implements View.OnClickListener, PlacesApi.OnResponseListener {
+public class HomeFragment extends Fragment implements PlacesApi.OnResponseListener {
 
 
     private MainActivity activity;
@@ -34,19 +34,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Plac
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        this.btnSearch = view.findViewById(R.id.btn_search);
-        this.btnSearch.setOnClickListener(this);
-
         this.placesApi = new PlacesApi(this);
 
         return this.view;
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (view.getId() == R.id.btn_search) {
-            this.placesApi.sendCityDataRequest("Budapest");
-        }
     }
 
     @Override

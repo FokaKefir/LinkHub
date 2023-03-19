@@ -42,13 +42,19 @@ public class UserSearchAdapter extends RecyclerView.Adapter<UserSearchAdapter.Us
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.example_place, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.example_search_user, parent, false);
 
         return new UserViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull UserSearchAdapter.UserViewHolder holder, int position) {
+        User user = this.users.get(position);
+
+        holder.txtName.setText(user.getName());
+        Glide.with(context)
+                .load(user.getImageUrl())
+                .into(holder.imageView);
 
     }
 
@@ -61,7 +67,6 @@ public class UserSearchAdapter extends RecyclerView.Adapter<UserSearchAdapter.Us
 
         public TextView txtName;
 
-        public  TextView txtDescription;
         public CircleImageView imageView;
 
         public UserViewHolder(@NonNull View itemView) {
@@ -70,7 +75,7 @@ public class UserSearchAdapter extends RecyclerView.Adapter<UserSearchAdapter.Us
             this.imageView = itemView.findViewById(R.id.img_user_search);
             this.txtName = itemView.findViewById(R.id.txt_user_name_search);
 
-            Glide.with(itemView).load(R.mipmap.ic_launcher_login).into(this.imageView);
+            Glide.with(context).load(R.mipmap.ic_launcher_login).into(this.imageView);
 
             this.itemView.setOnClickListener(this);
         }
