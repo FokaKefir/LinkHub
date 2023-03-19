@@ -11,6 +11,100 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/layout_user"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginTop="-8dp"
+            app:cardCornerRadius="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@color/kelly_green"
+                android:padding="16dp">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_user"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="0dp"
+                    android:clickable="true"
+                    android:src="@drawable/ic_baseline_person_add"
+                    app:civ_circle_background_color="@color/light_gray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="4"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:padding="3dp"
+                        android:text="Username"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="7"
+                        android:orientation="horizontal"
+                        android:paddingBottom="3dp">
+
+                        <TextView
+                            android:id="@+id/txt_user_posts"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="5"
+                            android:gravity="center"
+                            android:text="1000\nreviews"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/txt_user_followers"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="5"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:text="1000\nfollowers"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/txt_user_following"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="5"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:text="1000\nfollowing"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
         <ImageView
             android:id="@+id/user_search"
             android:layout_width="40dp"
@@ -20,96 +114,12 @@
             android:clickable="true"
             android:src="@drawable/baseline_search_24" />
 
-        <LinearLayout
-            android:id="@+id/layout_user"
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_user"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:clickable="true"
-                android:src="@drawable/ic_baseline_person_add"
-                app:civ_circle_background_color="@color/light_gray" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/txt_username"
-                    android:layout_width="wrap_content"
-                    android:layout_height="115dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="2"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:padding="3dp"
-                    android:text="Username"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="5"
-                    android:orientation="horizontal"
-                    android:paddingBottom="3dp">
-
-                    <TextView
-                        android:id="@+id/txt_user_posts"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="5"
-                        android:gravity="center"
-                        android:text="1000\nreviews"
-                        android:textColor="@color/black"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:id="@+id/txt_user_followers"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="5"
-                        android:clickable="true"
-                        android:gravity="center"
-                        android:text="1000\nfollowers"
-                        android:textColor="@color/black"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:id="@+id/txt_user_following"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="5"
-                        android:clickable="true"
-                        android:gravity="center"
-                        android:text="1000\nfollowing"
-                        android:textColor="@color/black"
-                        android:textSize="16dp" />
-
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_user_places"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/layout_user" />
+            android:layout_below="@id/layout_user"
+            android:padding="4dp"/>
 
     </RelativeLayout>
 

@@ -22,10 +22,10 @@
             android:textColor="@color/black"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclre_view_reviews"
+            android:id="@+id/recycler_view_reviews"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="2dp"/>
+            android:padding="4dp"/>
 
     </LinearLayout>
 

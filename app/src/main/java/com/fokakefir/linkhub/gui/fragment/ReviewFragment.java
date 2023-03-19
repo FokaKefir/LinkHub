@@ -2,7 +2,6 @@ package com.fokakefir.linkhub.gui.fragment;
 
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,10 +18,8 @@ import com.fokakefir.linkhub.logic.database.ReviewsDatabaseManager;
 import com.fokakefir.linkhub.model.Place;
 import com.fokakefir.linkhub.model.Review;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.Timestamp;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -63,7 +60,7 @@ public class ReviewFragment extends Fragment implements View.OnClickListener, Re
         this.txtTitle = this.view.findViewById(R.id.txt_review_place_title);
         this.txtTitle.setText(place.getName());
 
-        this.recyclerView = this.view.findViewById(R.id.recyclre_view_reviews);
+        this.recyclerView = this.view.findViewById(R.id.recycler_view_reviews);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this.activity));
         this.adapter = new ReviewAdapter(this.activity, this, this.reviews);
         this.recyclerView.setAdapter(this.adapter);
