@@ -124,6 +124,8 @@ public class FilterDialog extends AppCompatDialogFragment implements View.OnClic
         this.shopSwitch.setChecked(true);
         this.sportSwitch.setChecked(true);
 
+        loadAtributes();
+
 
         builder.setView(view);
 
@@ -220,6 +222,34 @@ public class FilterDialog extends AppCompatDialogFragment implements View.OnClic
 
 
 
+    }
+
+
+    private Switch  getIdByName(String name){
+        switch (name){
+            case "accomodations": return accomodationSwitch;
+            case "adult" : return adultSwitch;
+            case "amusements" : return  amusementSwitch;
+            case "architecture" : return architectureSwitch;
+            case "cultural" : return culturalSwitch;
+            case "foods" : return foodsSwitch;
+            case "historic" : return historicalSwitch;
+            case "natural" : return natuarlSwitch;
+            case "religion" : return religionSwitch;
+            case "sport"  : return sportSwitch;
+            case "shops" : return shopSwitch;
+            default: return null;
+
+        }
+    }
+    private void loadAtributes(){
+
+        for (int i = 0; i < FilterOps.getInstance().getKinds().size(); i++) {
+            getIdByName(FilterOps.getInstance().getKinds().get(i)).setChecked(true);
+        }
+        for (int i = 0; i < FilterOps.getInstance().getExclude().size(); i++) {
+            getIdByName(FilterOps.getInstance().getExclude().get(i)).setChecked(false);
+        }
     }
 
 }
