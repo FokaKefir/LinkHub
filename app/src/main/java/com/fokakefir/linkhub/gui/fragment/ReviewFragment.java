@@ -26,7 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class ReviewFragment extends Fragment implements View.OnClickListener, ReviewsDatabaseManager.OnResponseListener {
+public class ReviewFragment extends Fragment implements View.OnClickListener, ReviewsDatabaseManager.OnResponseListener, ReviewAdapter.OnReviewListener {
 
     // region 1. Declaration
 
@@ -65,7 +65,7 @@ public class ReviewFragment extends Fragment implements View.OnClickListener, Re
 
         this.recyclerView = this.view.findViewById(R.id.recyclre_view_reviews);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this.activity));
-        this.adapter = new ReviewAdapter(this.activity, this.reviews);
+        this.adapter = new ReviewAdapter(this.activity, this, this.reviews);
         this.recyclerView.setAdapter(this.adapter);
 
         this.fabCreateReview = this.view.findViewById(R.id.fab_add_review);
@@ -80,6 +80,7 @@ public class ReviewFragment extends Fragment implements View.OnClickListener, Re
     public void onStart() {
         super.onStart();
         this.databaseManager.setSnapshotListener();
+        this.databaseManager.checkReviewStatus();
     }
 
     @Override
@@ -107,18 +108,38 @@ public class ReviewFragment extends Fragment implements View.OnClickListener, Re
     public void onAdded(Review review, int pos) {
         this.reviews.add(review);
         this.adapter.notifyItemInserted(pos);
+        this.databaseManager.checkReviewStatus();
     }
 
     @Override
     public void onDeleted(int pos) {
         this.reviews.remove(pos);
         this.adapter.notifyItemRemoved(pos);
+        this.databaseManager.checkReviewStatus();
     }
 
     @Override
     public void onEdited(Review review, int pos) {
         this.reviews.set(pos, review);
         this.adapter.notifyItemChanged(pos);
+    }
+
+    @Override
+    public void onReviewStatus(boolean alreadyReviewed) {
+        if (alreadyReviewed)
+            this.fabCreateReview.setVisibility(View.GONE);
+        else
+            this.fabCreateReview.setVisibility(View.VISIBLE);
+    }
+
+    // endregion
+
+    // region 5. RecyclerView listener
+
+    @Override
+    public void onDeleteReview(int pos) {
+        Review review = this.reviews.get(pos);
+        this.databaseManager.deleteReview(review);
     }
 
     // endregion

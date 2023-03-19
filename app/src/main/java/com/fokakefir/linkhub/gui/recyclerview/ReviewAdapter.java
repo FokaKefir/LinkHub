@@ -1,7 +1,10 @@
 package com.fokakefir.linkhub.gui.recyclerview;
 
 import android.content.Context;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,17 +16,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.fokakefir.linkhub.R;
 import com.fokakefir.linkhub.model.Review;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder> {
 
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
+
     private Context context;
     private List<Review> reviews;
+    private OnReviewListener listener;
 
-    public ReviewAdapter(Context context, List<Review> reviews) {
+    public ReviewAdapter(Context context, OnReviewListener listener, List<Review> reviews) {
         this.context = context;
         this.reviews = reviews;
+        this.listener = listener;
     }
 
     @NonNull
@@ -45,6 +53,12 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
                 .load(review.getImageUrl())
                 .into(holder.imageView);
 
+        if (review.getAuthorId().equals(auth.getUid())) {
+            holder.registerForContextMenu();
+        } else {
+            holder.unregisterForContextMenu();
+        }
+
     }
 
     @Override
@@ -52,7 +66,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         return this.reviews.size();
     }
 
-    public class ReviewViewHolder extends RecyclerView.ViewHolder {
+    public class ReviewViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
         private View itemView;
 
         public TextView txtAuthor;
@@ -69,8 +83,39 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             this.txtRate = this.itemView.findViewById(R.id.txt_review_rate);
 
             this.imageView = this.itemView.findViewById(R.id.img_review);
-
-            this.itemView = itemView;
         }
+
+        public void unregisterForContextMenu() {
+            this.itemView.setOnCreateContextMenuListener(null);
+        }
+
+        public void registerForContextMenu() {
+            this.itemView.setOnCreateContextMenuListener(this);
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
+            menu.setHeaderTitle("Options");
+            MenuItem itemDelete = menu.add(Menu.NONE, 1, 1, "Delete review");
+
+            itemDelete.setOnMenuItemClickListener(this);
+        }
+
+        @Override
+        public boolean onMenuItemClick(@NonNull MenuItem item) {
+            int pos = getAdapterPosition();
+            if (pos != RecyclerView.NO_POSITION) {
+                switch (item.getItemId()) {
+                    case 1:
+                        listener.onDeleteReview(pos);
+                        return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    public interface OnReviewListener {
+        void onDeleteReview(int pos);
     }
 }
