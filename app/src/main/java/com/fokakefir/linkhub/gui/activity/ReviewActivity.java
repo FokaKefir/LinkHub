@@ -145,11 +145,15 @@ public class ReviewActivity extends AppCompatActivity implements NumberPicker.On
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.fab_done_review) {
-            String content = txtInputContent.getEditText().getText().toString().trim();
-            if (content.isEmpty()) {
-                Toast.makeText(this, "Content cannot be empty", Toast.LENGTH_SHORT).show();
+            if (!this.databaseManager.isUploadInProgress()) {
+                String content = txtInputContent.getEditText().getText().toString().trim();
+                if (content.isEmpty()) {
+                    Toast.makeText(this, "Content cannot be empty", Toast.LENGTH_SHORT).show();
+                } else {
+                    this.databaseManager.uploadReviewWithImage(content, this.number, this.imageUri);
+                }
             } else {
-                this.databaseManager.uploadReviewWithImage(content, this.number, this.imageUri);
+                Toast.makeText(this, "In progress", Toast.LENGTH_SHORT).show();
             }
         } else if (view.getId() == R.id.fab_upload_review_image) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {

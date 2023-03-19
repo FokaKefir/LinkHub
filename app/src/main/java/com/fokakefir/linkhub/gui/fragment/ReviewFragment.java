@@ -2,6 +2,7 @@ package com.fokakefir.linkhub.gui.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.fokakefir.linkhub.R;
 import com.fokakefir.linkhub.gui.activity.MainActivity;
 import com.fokakefir.linkhub.gui.recyclerview.ReviewAdapter;
+import com.fokakefir.linkhub.logic.database.ReviewsDatabaseManager;
 import com.fokakefir.linkhub.model.Place;
 import com.fokakefir.linkhub.model.Review;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,12 +26,11 @@ import java.util.Date;
 import java.util.List;
 
 
-public class ReviewFragment extends Fragment implements View.OnClickListener {
+public class ReviewFragment extends Fragment implements View.OnClickListener, ReviewsDatabaseManager.OnResponseListener {
 
     // region 1. Declaration
 
     private MainActivity activity;
-
 
     private FloatingActionButton fabCreateReview;
     private TextView txtTitle;
@@ -41,6 +42,8 @@ public class ReviewFragment extends Fragment implements View.OnClickListener {
     private View view;
 
     private Place place;
+
+    private ReviewsDatabaseManager databaseManager;
 
     // endregion
 
@@ -56,9 +59,6 @@ public class ReviewFragment extends Fragment implements View.OnClickListener {
         this.view = inflater.inflate(R.layout.fragment_review, container, false);
 
         this.reviews = new ArrayList<>();
-        this.reviews.add(new Review("123", "Sanyi", "Nagyon vagany hely\n meg fogok jonni", null, 6, new Timestamp(new Date())));
-        this.reviews.add(new Review("123", "Sanyi", "Nagyon vagany hely\n meg fogok jonni", null, 6, new Timestamp(new Date())));
-        this.reviews.add(new Review("123", "Sanyi", "Nagyon vagany hely\n meg fogok jonni", "http://fokakefir.go.ro/lemon_app/images/post_3f766558-a8dd-4a13-86d2-e0ae790c12aa.jpg", 6, new Timestamp(new Date())));
 
         this.txtTitle = this.view.findViewById(R.id.txt_review_place_title);
         this.txtTitle.setText(place.getName());
@@ -71,8 +71,21 @@ public class ReviewFragment extends Fragment implements View.OnClickListener {
         this.fabCreateReview = this.view.findViewById(R.id.fab_add_review);
         this.fabCreateReview.setOnClickListener(this);
 
+        this.databaseManager = new ReviewsDatabaseManager(this, this.place);
 
         return this.view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        this.databaseManager.setSnapshotListener();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        this.databaseManager.removeSnapshotListener();
     }
 
     // endregion
@@ -84,6 +97,28 @@ public class ReviewFragment extends Fragment implements View.OnClickListener {
         if (view.getId() == R.id.fab_add_review) {
             this.activity.writeReview(this.place);
         }
+    }
+
+    // endregion
+
+    // region 4. Database listener
+
+    @Override
+    public void onAdded(Review review, int pos) {
+        this.reviews.add(review);
+        this.adapter.notifyItemInserted(pos);
+    }
+
+    @Override
+    public void onDeleted(int pos) {
+        this.reviews.remove(pos);
+        this.adapter.notifyItemRemoved(pos);
+    }
+
+    @Override
+    public void onEdited(Review review, int pos) {
+        this.reviews.set(pos, review);
+        this.adapter.notifyItemChanged(pos);
     }
 
     // endregion

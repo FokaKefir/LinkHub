@@ -159,6 +159,10 @@ public class ReviewDatabaseManager {
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
+    public Boolean isUploadInProgress() {
+        return (this.uploadTask != null && this.uploadTask.isInProgress());
+    }
+
     public interface OnResponseListener {
         void onUploaded();
 
