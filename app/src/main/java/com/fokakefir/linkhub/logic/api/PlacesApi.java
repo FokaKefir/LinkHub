@@ -17,7 +17,7 @@ public class PlacesApi implements CityRequestTask.OnResponseListener, PlacesRequ
     private static final int REQUEST_PLACES = 2;
     private static final int REQUEST_PLACE = 3;
 
-    private static final int RADIUS = 500;
+    private static final int RADIUS = 3000;
     private static final int LIMIT = 20;
     private static final int RATE = 3;
 
@@ -65,6 +65,7 @@ public class PlacesApi implements CityRequestTask.OnResponseListener, PlacesRequ
             JSONObject jsonResponse = new JSONObject(response);
             JSONArray jsonPlaces =  jsonResponse.getJSONArray("features");
             this.size = jsonPlaces.length();
+
             for (int i = 0; i < jsonPlaces.length(); ++i) {
                 JSONObject jsonFeature = jsonPlaces.getJSONObject(i);
                 String xid = jsonFeature.getJSONObject("properties").getString("xid");
@@ -84,11 +85,19 @@ public class PlacesApi implements CityRequestTask.OnResponseListener, PlacesRequ
             String id = jsonResponse.getString("xid");
 
             String imageUrl = null;
-            if (!jsonResponse.isNull("image")) {
-                imageUrl = jsonResponse.getString("image");
-            } else {
+
+            if(!jsonResponse.isNull("preview")){
+                if(!jsonResponse.getJSONObject("preview").isNull("source")){
+                    imageUrl = jsonResponse.getJSONObject("preview").getString("source");
+                }
+
+                else if (!jsonResponse.isNull("image")) {
+
+                    imageUrl = jsonResponse.getString("image");
+                }
 
             }
+
 
             String desc = "";
             if (!jsonResponse.isNull("wikipedia_extracts") && !jsonResponse.getJSONObject("wikipedia_extracts").isNull("text"))
