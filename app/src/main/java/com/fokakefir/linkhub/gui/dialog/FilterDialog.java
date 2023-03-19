@@ -245,6 +245,7 @@ public class FilterDialog extends AppCompatDialogFragment implements View.OnClic
     private void loadAtributes(){
 
         for (int i = 0; i < FilterOps.getInstance().getKinds().size(); i++) {
+
             getIdByName(FilterOps.getInstance().getKinds().get(i)).setChecked(true);
         }
         for (int i = 0; i < FilterOps.getInstance().getExclude().size(); i++) {
