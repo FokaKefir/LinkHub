@@ -45,6 +45,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     public void onBindViewHolder(@NonNull ReviewViewHolder holder, int position) {
         Review review = this.reviews.get(position);
 
+
         holder.txtAuthor.setText(review.getAuthor());
         holder.txtRate.setText(String.valueOf(review.getRate()));
         holder.txtComment.setText(review.getComment());
@@ -66,7 +67,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         return this.reviews.size();
     }
 
-    public class ReviewViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
+
+    public class ReviewViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener, View.OnClickListener {
         private View itemView;
 
         public TextView txtAuthor;
@@ -81,6 +83,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             this.txtAuthor = this.itemView.findViewById(R.id.txt_review_author);
             this.txtComment = this.itemView.findViewById(R.id.txt_review_comment);
             this.txtRate = this.itemView.findViewById(R.id.txt_review_rate);
+
+            this.txtAuthor.setOnClickListener(this);
 
             this.imageView = this.itemView.findViewById(R.id.img_review);
         }
@@ -113,9 +117,20 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             }
             return false;
         }
+
+        @Override
+        public void onClick(View view) {
+            if (view.getId() == R.id.txt_review_author) {
+                int pos = getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION) {
+                    listener.onAuthorClick(pos);
+                }
+            }
+        }
     }
 
     public interface OnReviewListener {
         void onDeleteReview(int pos);
+        void onAuthorClick(int pos);
     }
 }

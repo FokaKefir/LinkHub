@@ -142,5 +142,12 @@ public class ReviewFragment extends Fragment implements View.OnClickListener, Re
         this.databaseManager.deleteReview(review);
     }
 
+    @Override
+    public void onAuthorClick(int pos) {
+        Review review = this.reviews.get(pos);
+        String userId = review.getAuthorId();
+        this.activity.addToFragments(new UserFragment(this.activity, userId));
+    }
+
     // endregion
 }

@@ -45,7 +45,7 @@ public class PlacesApi implements CityRequestTask.OnResponseListener, PlacesRequ
         );
     }
 
-    private void sendPlaceRequest(String xid) {
+    public void sendPlaceRequest(String xid) {
         new PlaceRequestTask(this).execute(xid);
     }
 
