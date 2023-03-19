@@ -1,5 +1,6 @@
 package com.fokakefir.linkhub.gui.fragment;
 
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,10 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.fokakefir.linkhub.R;
 import com.fokakefir.linkhub.gui.activity.MainActivity;
+import com.fokakefir.linkhub.gui.dialog.FilterDialog;
 import com.fokakefir.linkhub.gui.recyclerview.PlaceAdapter;
 import com.fokakefir.linkhub.logic.api.PlacesApi;
 import com.fokakefir.linkhub.model.FilterOps;
@@ -35,7 +38,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Pl
 
     private RecyclerView recyclerView;
     private EditText txtSearch;
-    private Button btnSearch;
+    private ImageView btnSearch;
+
+    private ImageView filterSearch;
     private PlaceAdapter adapter;
 
     private View view;
@@ -56,9 +61,12 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Pl
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.fragment_search, container, false);
         this.txtSearch = this.view.findViewById(R.id.txt_frag_search);
+
         this.btnSearch = this.view.findViewById(R.id.btn_frag_search);
+        this.filterSearch = this.view.findViewById(R.id.btn_frag_filter);
 
         this.btnSearch.setOnClickListener(this);
+        this.filterSearch.setOnClickListener(this);
 
         this.places = new ArrayList<>();
 
@@ -74,22 +82,22 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Pl
 
         ArrayList<String>testExclude = new ArrayList<>();
 
-        testExclude.add("historic");
-        testExclude.add("cultural");
-
-        //testKinds.add("adult");
-        //testKinds.add("-historic");
-        //testKinds.add("casino");
-
         ArrayList<String>testRatings = new ArrayList<>();
-
-        //testRatings.add("3");
 
         filterOps.setKinds(testKinds);
         filterOps.setRatings(testRatings);
         filterOps.setExclude(testExclude);
 
         filterOps.setSorted(false);
+
+        //testExclude.add("historic");
+        //testExclude.add("cultural");
+
+        //testKinds.add("adult");
+        //testKinds.add("-historic");
+        //testKinds.add("casino");
+
+        //testRatings.add("3");
 
 
         this.api = new PlacesApi(this);
@@ -113,9 +121,18 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Pl
                 this.api.sendCityDataRequest(city);
             }
         }
+        if(view.getId() == R.id.btn_frag_filter){
+            openFilterDialog();
+        }
     }
 
+
     // endregion
+
+    public  void  openFilterDialog(){
+        FilterDialog dialog = new FilterDialog();
+        dialog.show(activity.getSupportFragmentManager(), "Filter");
+    }
 
     // region 4. Api listener
 
