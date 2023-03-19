@@ -134,9 +134,9 @@ public class UserFragment extends Fragment implements UserDatabaseManager.OnResp
         if(v.getId() == R.id.user_search) {
             this.activity.addToFragments(new SearchUserFragment(this.activity));
         } else if (v.getId() == R.id.fab_add_user) {
-            Toast.makeText(activity, "add user", Toast.LENGTH_SHORT).show();
+            this.databaseManager.followUser(this.userId);
         } else if (v.getId() == R.id.fab_remove_user) {
-            Toast.makeText(activity, "remove user", Toast.LENGTH_SHORT).show();
+            this.databaseManager.unfollowUser(this.userId);
         }
     }
 
@@ -162,5 +162,7 @@ public class UserFragment extends Fragment implements UserDatabaseManager.OnResp
             this.fabAddUser.setVisibility(View.VISIBLE);
             this.fabRemoveUser.setVisibility(View.GONE);
         }
+
+        this.userSearch.setVisibility(View.GONE);
     }
 }

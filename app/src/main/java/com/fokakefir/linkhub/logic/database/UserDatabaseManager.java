@@ -5,10 +5,12 @@ import androidx.annotation.Nullable;
 import com.fokakefir.linkhub.logic.api.PlacesApi;
 import com.fokakefir.linkhub.model.Place;
 import com.fokakefir.linkhub.model.User;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -91,6 +93,30 @@ public class UserDatabaseManager implements EventListener<DocumentSnapshot> {
             }
         });
 
+    }
+
+    public void followUser(String userId) {
+        DocumentReference userFollowerRef = this.db.collection("users").document(auth.getUid());
+        DocumentReference userFollowingRef = db.collection("users").document(userId);
+        userFollowerRef.update("followingIds", FieldValue.arrayUnion(userId))
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        userFollowingRef.update("followerIds", FieldValue.arrayUnion(auth.getUid()));
+                    }
+                });
+    }
+
+    public void unfollowUser(String userId) {
+        DocumentReference userFollowerRef = this.db.collection("users").document(auth.getUid());
+        DocumentReference userFollowingRef = db.collection("users").document(userId);
+        userFollowerRef.update("followingIds", FieldValue.arrayRemove(userId))
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        userFollowingRef.update("followerIds", FieldValue.arrayRemove(auth.getUid()));
+                    }
+                });
     }
 
 
