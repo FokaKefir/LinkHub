@@ -41,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     public static final int PICK_IMAGE_REQUEST = 1;
     public static final int STORAGE_PERMISSION_CODE = 123;
+
     private TextInputLayout txtUsername;
     private TextInputLayout txtEmail;
     private TextInputLayout txtPassword;

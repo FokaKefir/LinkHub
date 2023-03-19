@@ -72,4 +72,8 @@ public class User {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    public void addPlaceId(String id) {
+        this.placeIds.add(id);
+    }
 }
