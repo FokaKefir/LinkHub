@@ -10,16 +10,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.fokakefir.linkhub.R;
 import com.fokakefir.linkhub.logic.database.LoginDatabaseManager;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseUser;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, LoginDatabaseManager.OnResponseListener {
     private TextInputLayout txtEmail;
     private TextInputLayout txtPassword;
     private Button btnLogin;
     private TextView txtCreateAccount;
+    private CircleImageView logoLoginImage;
     private LoginDatabaseManager loginDatabaseManager;
 
     @Override
@@ -31,9 +35,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         this.txtPassword = findViewById(R.id.txt_password);
         this.btnLogin = findViewById(R.id.btn_login);
         this.txtCreateAccount = findViewById(R.id.txt_create_account);
+        this.logoLoginImage = findViewById(R.id.img_login_user_logo);
 
         this.btnLogin.setOnClickListener(this);
         this.txtCreateAccount.setOnClickListener(this);
+        Glide.with(this).load(R.mipmap.ic_launcher_login).into(this.logoLoginImage);
 
         this.loginDatabaseManager = new LoginDatabaseManager(this);
     }

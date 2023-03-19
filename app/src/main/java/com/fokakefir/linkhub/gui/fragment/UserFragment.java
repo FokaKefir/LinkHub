@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,7 +22,7 @@ import com.fokakefir.linkhub.model.User;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class UserFragment extends Fragment implements UserDatabaseManager.OnResponseListener {
+public class UserFragment extends Fragment implements UserDatabaseManager.OnResponseListener, View.OnClickListener {
 
     private MainActivity activity;
 
@@ -29,14 +30,13 @@ public class UserFragment extends Fragment implements UserDatabaseManager.OnResp
     private TextView txtPosts;
     private TextView txtFollowers;
     private TextView txtFollowing;
-
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private UserDatabaseManager databaseManager;
-
     private View view;
     private CircleImageView userImage;
     private TextView txtUsername;
+    private ImageView userSearch;
     public UserFragment(MainActivity activity) {
         this.activity = activity;
     }
@@ -50,6 +50,10 @@ public class UserFragment extends Fragment implements UserDatabaseManager.OnResp
         this.txtPosts = this.view.findViewById(R.id.txt_user_posts);
         this.txtFollowers = this.view.findViewById(R.id.txt_user_followers);
         this.txtFollowing = this.view.findViewById(R.id.txt_user_following);
+        this.userSearch = this.view.findViewById(R.id.user_search);
+
+        this.userSearch.setOnClickListener(this);
+
         this.databaseManager = new UserDatabaseManager(this);
 
         return this.view;
@@ -59,7 +63,6 @@ public class UserFragment extends Fragment implements UserDatabaseManager.OnResp
     public void onStart() {
         super.onStart();
         this.databaseManager.setSnapshotListener();
-
     }
 
     @Override
@@ -79,6 +82,14 @@ public class UserFragment extends Fragment implements UserDatabaseManager.OnResp
             Glide.with(getContext()).load(R.drawable.ic_baseline_user_24).into(this.userImage);
         } else{
             Glide.with(getContext()).load(user.getImageUrl()).into(this.userImage);
+        }
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.user_search) {
+            this.activity.addToFragments(new SearchUserFragment(this.activity));
         }
     }
 }
