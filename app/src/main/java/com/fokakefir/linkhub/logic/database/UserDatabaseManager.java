@@ -65,7 +65,6 @@ public class UserDatabaseManager implements EventListener<DocumentSnapshot> {
         listener.onUserDataChanged(user);
 
         checkRelation();
-
         List<String> placeIds = user.getPlaceIds();
         Collections.reverse(placeIds);
         for (String placeId : placeIds) {

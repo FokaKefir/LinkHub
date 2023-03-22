@@ -165,4 +165,5 @@ public class UserFragment extends Fragment implements UserDatabaseManager.OnResp
 
         this.userSearch.setVisibility(View.GONE);
     }
+
 }
